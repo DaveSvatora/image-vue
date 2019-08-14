@@ -1,36 +1,63 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        text
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-app-bar>
+    <div class="main">
+      <div>
+        <v-app-bar color="pink" dark>
+          <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-    <v-content>
-      <HelloWorld/>
-    </v-content>
+          <v-toolbar-title>Photo App</v-toolbar-title>
+
+          <v-spacer></v-spacer>
+
+          <v-btn icon>
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
+
+          <v-btn icon>
+            <v-icon>mdi-magnify</v-icon>
+          </v-btn>
+
+          <v-menu left bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn icon v-on="on">
+                <v-icon>mdi-dots-vertical</v-icon>
+              </v-btn>
+            </template>
+
+            <v-list>
+              <v-list-item v-for="n in 5" :key="n" @click="() => {}">
+                <v-list-item-title>Option {{ n }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-app-bar>
+      </div>
+      <v-form ref="form">
+        <v-file-input chips append-icon="mdi-camera" label="Select photos" multiple required></v-file-input>
+        <v-btn block large outlined color="teal">Upload</v-btn>
+      </v-form>
+
+    </div>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld,
-  },
-  data: () => ({
-    //
-  }),
+  data() {
+    return {
+      drawer: null,
+      items: [
+        { title: "Home", icon: "dashboard" },
+        { title: "About", icon: "question_answer" }
+      ]
+    };
+  }
 };
 </script>
+
+<style scoped>
+form {
+  margin: 2%;
+  text-align: center;
+}
+</style>
