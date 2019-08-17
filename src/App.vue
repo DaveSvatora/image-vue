@@ -9,14 +9,6 @@
 
           <v-spacer></v-spacer>
 
-          <v-btn icon>
-            <v-icon>mdi-heart</v-icon>
-          </v-btn>
-
-          <v-btn icon>
-            <v-icon>mdi-magnify</v-icon>
-          </v-btn>
-
           <v-menu left bottom>
             <template v-slot:activator="{ on }">
               <v-btn icon v-on="on">
@@ -32,25 +24,74 @@
           </v-menu>
         </v-app-bar>
       </div>
-      <v-form ref="form">
-        <v-file-input chips append-icon="mdi-camera" label="Select photos" multiple required></v-file-input>
-        <v-btn block large outlined color="teal">Upload</v-btn>
-      </v-form>
+      <div class="container">
+        <!-- <v-form ref="form" enctype="multipart/form-data"> -->
+        <v-file-input
+          v-model="files"
+          chips
+          clearable
+          outlined
+          show-size
+          clear-icon="mdi-close"
+          prepend-icon="mdi-camera"
+          label="Select photos"
+          multiple
+          required
+          v-on:change="handleUploads()"
+        ></v-file-input>
 
+        <v-btn v-on:click="upload()" block large outlined color="teal">Upload</v-btn>
+        <!-- </v-form> -->
+      </div>
     </div>
   </v-app>
 </template>
 
 <script>
+/* eslint-disable */
+const axios = require("axios");
 export default {
   data() {
     return {
+      files: [],
       drawer: null,
       items: [
         { title: "Home", icon: "dashboard" },
         { title: "About", icon: "question_answer" }
       ]
     };
+  },
+  methods: {
+    upload() {
+      let formData = new FormData();
+      // alert(this.files.length);
+      for (var i = 0; i < this.files.length; i++) {
+        let file = this.files[i];
+        // alert(file.name);
+        formData.append("pics[" + i + "]", file);
+      }
+
+      axios
+        .post("http://localhost:3000/uploadmultiple", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(function() {
+          console.log("SUCCESS!!");
+        })
+        .catch(function() {
+          console.log("FAILURE!!");
+        });
+      // alert("upload meow");
+    },
+    handleUploads() {
+      this.files.forEach(element => {
+        // console.log(element.name);
+      });
+      console.log(this.files.length);
+      // alert("handlingUpload meow");
+    }
   }
 };
 </script>
