@@ -2,7 +2,7 @@
   <v-app>
     <div class="main">
       <div>
-        <v-app-bar color="pink" dark>
+        <v-app-bar color="primary" dark>
           <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
           <v-toolbar-title>Photo App</v-toolbar-title>
@@ -24,11 +24,17 @@
           </v-menu>
         </v-app-bar>
       </div>
-
-      <v-form ref="form" action="http://localhost:3000/uploadmultiple" enctype="multipart/form-data" method="POST">
-         <input type="file" id="pics" name="pics" multiple />
-        <v-btn type="submit" color="primary">Upload your files</v-btn> 
-      </v-form>
+      <div class="upload-container">
+        <v-file-input
+          v-model="pics"
+          id="pics"
+          name="pics"
+          multiple
+          chips
+          v-on:change="handleFiles()"
+        />
+        <v-btn v-on:click="submitFiles()" color="primary">Upload your files</v-btn>
+      </div>
     </div>
   </v-app>
 </template>
@@ -46,13 +52,43 @@ export default {
         { title: "About", icon: "question_answer" }
       ]
     };
+  },
+  methods: {
+    handleFiles: function(event) {
+      const fileList = this.pics; /* now you can work with the file list */
+      fileList.forEach(element => {
+        console.log(element.name);
+      });
+    },
+    submitFiles: function(event) {
+      let formData = new FormData();
+      this.pics.forEach(pic => {
+        formData.append("pics", pic);
+      });
+      // for (var i = 0; i < this.pics.length; i++) {
+      //   formData.append("pics", this.pics[i]);
+      // }
+      axios
+        .post("http://localhost:3000/uploadmultiple", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(function() {
+          console.log("SUCCESS!!");
+        })
+        .catch(function() {
+          console.log("FAILURE!!");
+        });
+    }
   }
 };
 </script>
 
 <style scoped>
-form {
+.upload-container {
   margin: 2%;
   text-align: center;
+  vertical-align: middle;
 }
 </style>
