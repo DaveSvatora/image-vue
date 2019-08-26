@@ -1,23 +1,18 @@
-import Vue from 'vue';
-import Vuetify from 'vuetify/lib';
-import colors from 'vuetify/lib/util/colors'
+// src/plugins/vuetify.js
 
-Vue.use(Vuetify);
+import Vue from 'vue'
+import Vuetify from 'vuetify/lib'
+
+Vue.use(Vuetify)
 
 export default new Vuetify({
   theme: {
-    light: {
-      primary: colors.purple,
-      secondary: colors.grey.darken1,
-      accent: colors.shades.black,
-      error: colors.red.accent3,
-      anchor: '#8c9eff',
-    },
-    dark: {
-      primary: colors.blue.lighten3,
-    },
-  },
-  icons: {
-    iconfont: 'mdi',
-  },
-});
+    // themes: {
+      dark: {
+        primary: '#263238',
+        secondary: '#FB8C00',
+        accent: '#64FFDA',
+      }
+    // }
+  }
+})
