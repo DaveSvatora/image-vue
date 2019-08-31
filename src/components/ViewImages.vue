@@ -23,7 +23,7 @@ export default {
       var self = this;
       self.images = [];
       axios
-        .get("http://192.168.1.2:3000/all")
+        .get("http://192.168.1.2:8080/all")
         .then(function(response) {
           var images = [];
           images.push(JSON.parse(response.data));

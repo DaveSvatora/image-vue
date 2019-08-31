@@ -44,7 +44,7 @@ export default {
     },
     upload: function(formData) {
       axios
-        .post("http://192.168.1.2:3000/uploadmultiple", formData, {
+        .post("http://192.168.1.2:8080/uploadmultiple", formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
