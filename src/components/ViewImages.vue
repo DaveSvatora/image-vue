@@ -2,8 +2,8 @@
   <div class="viewImages" dark>
     <v-btn v-on:click="getImages()">Get Images</v-btn>
 
-    <v-row align="center" justify="center" v-for="image in images" :key="image.file" :alt="image.file">
-      <img :src="image.url" max-height="100" max-width="100"/>
+    <v-row align="center" class="image-row" justify="center" v-for="image in images" :key="image.file" :alt="image.file">
+      <img :src="image.url" class="render-image"/>
     </v-row>
   </div>
 </template>
@@ -61,5 +61,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.render-image {
+  max-width: 200px;
+  max-height: 200px;
+}
+.image-row {
+  margin-bottom: 10px;
+}
 </style>
