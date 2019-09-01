@@ -2,8 +2,15 @@
   <div class="viewImages" dark>
     <v-btn v-on:click="getImages()">Get Images</v-btn>
 
-    <v-row align="center" class="image-row" justify="center" v-for="image in images" :key="image.file" :alt="image.file">
-      <img :src="image.url" class="render-image"/>
+    <v-row
+      align="center"
+      class="image-row"
+      justify="center"
+      v-for="image in images"
+      :key="image.file"
+      :alt="image.file"
+    >
+      <img :src="image.url" class="render-image" />
     </v-row>
   </div>
 </template>
@@ -17,6 +24,11 @@ export default {
     return {
       images: []
     };
+  },
+  async created() {
+    console.log('meow');
+    const images = this.getImages();
+
   },
   methods: {
     getImages: function() {
@@ -46,7 +58,7 @@ export default {
         });
     },
     getImage: function(url) {
-      console.log(url)
+      console.log(url);
       axios
         .get(url)
         .then(function(res) {
