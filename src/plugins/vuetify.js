@@ -1,18 +1,22 @@
-// src/plugins/vuetify.js
-
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
+import colors from 'vuetify/lib/util/colors'
 
 Vue.use(Vuetify)
 
 export default new Vuetify({
   theme: {
-    // themes: {
+    themes: {
+      light: {
+        primary: colors.blue.darken1, 
+        secondary: colors.green.darken2, 
+        accent: colors.deepOrange, 
+      },
       dark: {
-        primary: '#263238',
-        secondary: '#FB8C00',
-        accent: '#64FFDA',
+        primary: colors.blueGrey.darken2, 
+        secondary: colors.blueGrey.darken1, 
+        accent: colors.orange.darken2, 
       }
-    // }
-  }
+    },
+  },
 })

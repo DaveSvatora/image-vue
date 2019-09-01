@@ -10,8 +10,9 @@
       prepend-icon="mdi-camera"
       v-on:change="handleFiles()"
       color="secondary"
+      label="Select Photos to Upload"
     />
-    <v-btn block v-on:click="submitFiles()" color="accent" dark>Upload your files</v-btn>
+    <v-btn block v-on:click="submitFiles()" color="secondary">Upload your files</v-btn>
   </div>
 </template>
 
@@ -63,7 +64,9 @@ export default {
 
 <style lang="scss" scoped>
 .upload {
-  margin: 2%;
+  margin-top: 2%;
+  margin-left: 2%;
+  margin-right: 2%;
   text-align: center;
   vertical-align: middle;
 }

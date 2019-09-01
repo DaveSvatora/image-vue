@@ -1,17 +1,19 @@
 <template>
-  <div class="viewImages" dark>
-    <v-btn v-on:click="getImages()">Get Images</v-btn>
-
-    <v-row
-      align="center"
-      class="image-row"
-      justify="center"
-      v-for="image in images"
-      :key="image.file"
-      :alt="image.file"
-    >
-      <img :src="image.url" class="render-image" />
-    </v-row>
+  <div class="viewImages">
+    <div class="getImages">
+      <v-btn block v-on:click="getImages()" color="accent">Get Images</v-btn>
+    </div>
+    <div class="retrievedImages">
+      <v-row align="center" class="image-row" justify="center">
+        <img
+          v-for="image in images"
+          :key="image.url"
+          :alt="image.file"
+          :src="image.url"
+          class="render-image"
+        />
+      </v-row>
+    </div>
   </div>
 </template>
 
@@ -26,9 +28,8 @@ export default {
     };
   },
   async created() {
-    console.log('meow');
+    console.log("meow");
     const images = this.getImages();
-
   },
   methods: {
     getImages: function() {
@@ -77,8 +78,15 @@ export default {
 .render-image {
   max-width: 200px;
   max-height: 200px;
+  margin: 1%;
 }
 .image-row {
   margin-bottom: 10px;
+}
+.getImages,
+.retrievedImages {
+  margin: 2%;
+  text-align: center;
+  vertical-align: middle;
 }
 </style>
