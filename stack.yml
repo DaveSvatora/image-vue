@@ -3,7 +3,7 @@ services:
   imageapi:
     image: imageapi:latest
     volumes:
-      - /home/itxbro/imageapi/test:/uploads/:Z
+      - /media/itxbro/Seagate Expansion Drive/test:/uploads/:Z
     ports:
       - "8080:8080"
   image-vue:
