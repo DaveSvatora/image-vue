@@ -20,6 +20,9 @@ export default {
     Upload,
     ViewImages
   },
+  created() {
+    this.$vuetify.theme.dark = true;
+  }
 };
 </script>
 

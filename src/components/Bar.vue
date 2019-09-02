@@ -3,9 +3,9 @@
     <v-app-bar dense color="primary">
       <v-toolbar-title>{{title}}</v-toolbar-title>
       <div class="flex-grow-1"></div>
-      <v-btn icon>
+      <!-- <v-btn icon>
         <v-icon v-on:click="toggleTheme()">mdi-invert-colors</v-icon>
-      </v-btn>
+      </v-btn> -->
     </v-app-bar>
   </div>
 </template>
@@ -18,11 +18,11 @@ export default {
       title: 'Photo App'
     }
   },
-  methods: {
-    toggleTheme: function() {
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-    },
-  }
+  // methods: {
+  //   toggleTheme: function() {
+  //     this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+  //   },
+  // }
 };
 </script>
 

@@ -7,16 +7,16 @@ Vue.use(Vuetify)
 export default new Vuetify({
   theme: {
     themes: {
-      light: {
-        primary: colors.blue.darken1, 
-        secondary: colors.green.darken2, 
-        accent: colors.deepOrange, 
-      },
       dark: {
         primary: colors.blueGrey.darken2, 
         secondary: colors.blueGrey.darken1, 
         accent: colors.orange.darken2, 
-      }
+      },
+      light: {
+        primary: colors.blue.darken1, 
+        secondary: colors.green.darken2, 
+        accent: colors.deepOrange, 
+      }      
     },
   },
 })
