@@ -1,5 +1,7 @@
 # image-vue
 
+![Screenshot](photo-app.gif)
+
 ## Project setup
 ```
 npm install
