@@ -4,15 +4,30 @@
       <v-btn block v-on:click="getImages()" color="accent">Get Images</v-btn>
     </div>
     <div class="retrievedImages">
-      <v-row align="center" class="image-row" justify="center">
-        <img
-          v-for="image in images"
-          :key="image.url"
-          :alt="image.file"
-          :src="image.url"
-          class="render-image"
-        />
-      </v-row>
+      <v-tabs background-color="primary">
+        <v-tab v-for="year in years" :key="year.year">{{year.year}}</v-tab>
+        <v-tab-item v-for="year in years" :key="year.year">
+          <v-tabs background-color="primary">
+            <v-tab v-for="month in year.months" :key="month.month">{{month.month}}</v-tab>
+            <v-tab-item v-for="month in year.months" :key="month.month">
+              <v-tabs background-color="primary">
+                <v-tab v-for="day in month.days" :key="day.day">{{day.day}}</v-tab>
+                <v-tab-item v-for="day in month.days" :key="day.day">
+                  <v-row align="center" class="image-row" justify="center">
+                    <img
+                      v-for="file in day.filenames"
+                      :key="file.url"
+                      :alt="file.file"
+                      :src="file.url"
+                      class="render-image"
+                    />
+                  </v-row>
+                </v-tab-item>
+              </v-tabs>
+            </v-tab-item>
+          </v-tabs>
+        </v-tab-item>
+      </v-tabs>
     </div>
   </div>
 </template>
@@ -24,7 +39,10 @@ export default {
   name: "viewImages",
   data() {
     return {
-      images: []
+      // images: [],
+      years: []
+      // months: [],
+      // days: []
     };
   },
   async created() {
@@ -34,21 +52,17 @@ export default {
   methods: {
     getImages: function() {
       var self = this;
-      self.images = [];
+      self.years = [];
       axios
         .get("http://192.168.1.2:8080/all")
         .then(function(response) {
-          var images = [];
-          images.push(JSON.parse(response.data));
-          // console.log(images[0]);
-          // self.images = images[0];
-          // self.images = JSON.parse(response.data[0])
-          images[0].forEach(element => {
-            // self.images.push(self.getImage(element.url));
-            self.images.push(element);
-            console.log(JSON.stringify(element));
+          var years = [];
+          years.push(JSON.parse(response.data));
+          years[0].forEach(year => {
+            self.years.push(year);
           });
-          return self.images;
+          console.log(JSON.stringify(self.years));
+          return self.years;
         })
         .catch(function(error) {
           // handle error
@@ -61,7 +75,7 @@ export default {
     getImage: function(url) {
       console.log(url);
       axios
-        .get(url)
+        .get(JSON.stringify(url))
         .then(function(res) {
           return res.data;
         })
