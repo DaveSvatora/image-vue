@@ -8,7 +8,6 @@
       multiple
       chips
       prepend-icon="mdi-camera"
-      v-on:change="handleFiles()"
       color="secondary"
       label="Select Photos to Upload"
     />
@@ -62,26 +61,13 @@ export default {
     sleep: function(time) {
       return new Promise(resolve => setTimeout(resolve, time));
     },
-    handleFiles: function(event) {
-      const fileList = this.pics; /* now you can work with the file list */
-      fileList.forEach(element => {
-        console.log(element.name);
-      });
-    },
     submitFiles: function(event) {
       if (this.pics.length > 0) {
-        // this.loading = true;
-        // this.sleep(500).then(() => {
         let formData = new FormData();
         this.pics.forEach(pic => {
           formData.append("pics", pic);
         });
         this.upload(formData);
-        // this.$data.display = this.getImages();
-        console.log(this.$data.display);
-        //   this.loading = false;
-        // });
-        // return;
       } else {
         this.loading = true;
         this.eatasnack("Select images to upload first");
@@ -99,7 +85,6 @@ export default {
           }
         })
         .then(function() {
-          // this.loading = false;
           console.log("SUCCESS!!");
           window.location.reload();
         })
@@ -114,7 +99,7 @@ export default {
 
 <style lang="scss" scoped>
 .upload {
-  margin-top: 2%;
+  margin-top: 1%;
   margin-left: 2%;
   margin-right: 2%;
   text-align: center;
