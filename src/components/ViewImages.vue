@@ -3,14 +3,22 @@
     <div class="getImages">
       <v-btn block v-on:click="getImages()" color="accent">Get Images</v-btn>
     </div>
-    <v-tabs background-color="primary">
-      <v-tab v-for="year in years" :key="year.year">{{year.year}}</v-tab>
+    <v-tabs background-color="primary" v-model="active_year">
+      <v-tab v-for="year in years" :key="year.year" v-on:click="setYear(year.year)">{{year.year}}</v-tab>
       <v-tab-item v-for="year in years" :key="year.year">
-        <v-tabs background-color="primary">
-          <v-tab v-for="month in year.months" :key="month.month">{{month.month}}</v-tab>
+        <v-tabs background-color="primary" v-model="active_month">
+          <v-tab
+            v-for="month in year.months"
+            :key="month.month"
+            v-on:click="setMonth(month.month)"
+          >{{month.month}}</v-tab>
           <v-tab-item v-for="month in year.months" :key="month.month">
-            <v-tabs background-color="primary">
-              <v-tab v-for="day in month.days" :key="day.day">{{day.day}}</v-tab>
+            <v-tabs background-color="primary" v-model="active_day">
+              <v-tab
+                v-for="day in month.days"
+                :key="day.day"
+                v-on:click="setDay(day.day)"
+              >{{day.day}}</v-tab>
               <v-tab-item v-for="day in month.days" :key="day.day">
                 <v-row align="center" class="image-row" justify="center">
                   <v-card v-for="file in day.filenames" :key="file.url" outlined tile>
@@ -41,12 +49,19 @@ export default {
   name: "viewImages",
   data() {
     return {
+      active_year: 0,
+      active_month: 0,
+      active_day: 0,
       years: []
     };
   },
-  async created() {
-    console.log("meow");
+  created() {
     const images = this.getImages();
+  },
+  mounted() {
+    this.active_year = JSON.parse(localStorage.getItem("year") | 0);
+    this.active_month = JSON.parse(localStorage.getItem("month") | 0);
+    this.active_day = JSON.parse(localStorage.getItem("day") | 0);
   },
   methods: {
     getImages: function() {
@@ -90,6 +105,30 @@ export default {
           link.click();
         })
         .catch(() => console.log("error occured"));
+    },
+    setYear: function(year) {
+      this.active_year = this.years.findIndex(
+        function(item, i) {
+          return item.year === year;
+        }
+      );
+      localStorage.setItem("year", JSON.stringify(this.active_year));
+    },
+    setMonth: function(month) {
+      this.active_month = this.years[this.active_year].months.findIndex(
+        function(item, i) {
+          return item.month === month;
+        }
+      );
+      localStorage.setItem("month", JSON.stringify(this.active_month));
+    },
+    setDay: function(day) {
+      this.active_day = this.years[this.active_year].months[this.active_month].days.findIndex(
+        function(item, i) {
+          return item.day === day;
+        }
+      );
+      localStorage.setItem("day", JSON.stringify(this.active_day));
     }
   }
 };
